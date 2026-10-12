@@ -220,11 +220,21 @@ if st.button("✨ AI GỢI Ý NỘI DUNG GIÁO ÁN"):
             st.success("AI đã gợi ý nội dung giáo án thành công!")
             st.rerun()
 
+        
         except Exception as e:
-            st.error(
-                "Không thể tạo giáo án bằng AI. "
-                f"Loại lỗi: {type(e).__name__}"
-            )
+            import urllib.error
+
+            if isinstance(e, urllib.error.HTTPError):
+                st.error(
+                    f"Gemini API báo lỗi HTTP {e.code}. "
+                    "Vui lòng kiểm tra kết nối, hạn mức hoặc quyền truy cập mô hình."
+                )
+            else:
+                st.error(
+                    f"Không thể tạo giáo án bằng AI. "
+                    f"Loại lỗi: {type(e).__name__}"
+                )
+
 
 if st.button("TẠO KẾ HOẠCH BÀI DẠY"):
 
